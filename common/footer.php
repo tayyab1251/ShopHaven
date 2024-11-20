@@ -1,5 +1,5 @@
     <!-- Footer -->
-    <div class="bg-primary text-white text-center p-3">
+    <div class="bg-primary text-white text-center py-3">
         <p class="footer-text">All rights reserved © Designed by Tayyab 2K24</p>
      </div>
     <!-- Bootstrap JS (includes Popper.js for collapse) -->
