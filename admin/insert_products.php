@@ -1,47 +1,90 @@
-<?php include 'admin-header.php'; ?>
+<?php
 
-<div class="container-fluid d-flex flex-column min-vh-100">
-    <div class="flex-grow-1 d-flex justify-content-center align-items-center">
-        <div class="text-center">
-            <h1 class="text-primary mb-4">Add Products</h1>
-            <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
-                <div class="input-group mb-3">
-                    <input type="text" name="product" class="form-control" placeholder="Enter product name">
+include 'admin-header.php';
+include 'admin_functions.php';
+
+// echo '<pre>';
+// print_r($_SERVER);
+// echo '</pre>';
+
+// if($_SERVER['REQUEST_URI'] == '/store/admin/insert_products.php') {
+//     echo 'Add Product';
+// }
+?>
+
+
+<?php insertProduct()?>
+
+<!-- Centered container -->
+<h5 class="card-title text-center h1 my-4">Add new Product</h5>
+<div class="container d-flex justify-content-center align-items-center ">
+    <div class="card shadow-lg" style="max-width: 600px; width: 100%;">
+        <div class="card-body">
+
+            <!-- Product Add Form -->
+            <form method="POST" action="" enctype="multipart/form-data" class="needs-validation" novalidate>
+
+                <!-- Product Title -->
+                <div class="mb-3">
+                    <label for="product_name" class="form-label">Product Title</label>
+                    <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Enter product name" required>
+
                 </div>
-                <button type="submit" name="insert" class="btn btn-primary">Add Product</button>
+
+                <!-- Product Description -->
+                <div class="mb-3">
+                    <label for="product_description" class="form-label">Product Description</label>
+                    <input class="form-control" autocomplete="true" id="product_description" placeholder="Enter product description" name="product_description" required></input>
+
+                </div>
+
+                <!-- Product Keywords -->
+                <div class="mb-3">
+                    <label for="product_keywords" class="form-label">Product Keywords</label>
+                    <input class="form-control" id="product_keywords" name="product_keywords" placeholder="Enter product keywords" required></input>
+
+                </div>
+
+                <!-- Brand Select -->
+                <div class="mb-3">
+                    <label for="brand_id" class="form-label">Select Brand</label>
+                    <select class="form-select" id="brand_id" name="brand_name" required>
+                        <option value="">-- Select Brand --</option>
+                        <?php getProductBrands();?>
+                    </select>
+                </div>
+                <!-- Category Select -->
+                <div class="mb-3">
+                    <label for="category_id" class="form-label">Select Category</label>
+                    <select class="form-select" id="category_id" name="category_name" required>
+                        <option value="">-- Select Category --</option>
+                        <?php getProductCategories()?>
+                    </select>
+
+                </div>
+                <!-- price -->
+                <div class="mb-3">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="text" class="form-control" id="price" name="price" placeholder="Enter product price">
+
+                </div>
+                <!-- Image Uploads -->
+                <div class="mb-3">
+                    <label for="product_image" class="form-label">Upload Image</label>
+                    <input type="file" class="form-control" id="product_image" name="product_image" accept="image/*">
+                </div>
+                <div class="mb-3">
+                    <label for="product_image1" class="form-label">Upload Image</label>
+                    <input type="file" class="form-control" id="product_image1" name="product_image1" accept="image/*">
+                </div>
+                <div class="mb-3">
+                    <label for="product_image2" class="form-label">Upload Image</label>
+                    <input type="file" class="form-control" id="product_image2" name="product_image2" accept="image/*">
+                </div>
+                <button type="submit" class="btn btn-primary w-100" name="insert">Add Product</button>
             </form>
         </div>
     </div>
-
-    <!-- Footer section -->
-    <?php include 'admin-footer.php'; ?>
 </div>
 
-<?php
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['insert'])) {
-    $product_title = $_POST['product'];
-    if (isset($product_title) && !empty($product_title)) {
-        include 'db-config.php';
-        if (!$conn) {
-            die("Connection failed: " . mysqli_connect_error());
-        }
-        $selected_data = "SELECT * FROM `products` WHERE products_title = '$product_title'";
-        $selected_result = mysqli_query($conn, $selected_data);
-
-        $rows = mysqli_num_rows($selected_result);
-        if ($rows > 0) {
-            echo "<script>alert('{$product_title} already exists in products!!')</script>";
-        } else {
-            $query = "INSERT INTO products (products_title) VALUES ('$product_title')";
-            
-            if (mysqli_query($conn, $query)) {
-                echo "<script>alert('Product added successfully')</script>";
-            } else {
-                echo "Error: " . mysqli_error($conn);
-            }
-        }
-        mysqli_close($conn);
-    }
-}
-?>
-
+<?php include 'admin-footer.php'; ?>

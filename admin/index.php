@@ -28,13 +28,13 @@
         <h1 class="text-center mb-4">Admin Actions</h1>
         <div class="row">
             <div class="col-md-6">
-                <a href="insert_products.php?add-product" class="btn btn-primary action-btn">
+                <a href="insert_products.php" class="btn btn-primary action-btn">
                     <i class="ri-file-add-line"></i> Insert Products
                 </a>
                 <a href="view_products.php" class="btn btn-secondary action-btn">
                     <i class="ri-eye-line"></i> View Products
                 </a>
-                <a href="insert_categories.php?add-category" class="btn btn-success action-btn">
+                <a href="insert_categories.php" class="btn btn-success action-btn">
                     <i class="ri-folder-add-line"></i> Insert Categories
                 </a>
                 <a href="view_categories.php" class="btn btn-warning action-btn">
