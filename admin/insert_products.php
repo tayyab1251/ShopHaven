@@ -3,13 +3,6 @@
 include 'admin-header.php';
 include 'admin_functions.php';
 
-// echo '<pre>';
-// print_r($_SERVER);
-// echo '</pre>';
-
-// if($_SERVER['REQUEST_URI'] == '/store/admin/insert_products.php') {
-//     echo 'Add Product';
-// }
 ?>
 
 
@@ -73,14 +66,7 @@ include 'admin_functions.php';
                     <label for="product_image" class="form-label">Upload Image</label>
                     <input type="file" class="form-control" id="product_image" name="product_image" accept="image/*">
                 </div>
-                <div class="mb-3">
-                    <label for="product_image1" class="form-label">Upload Image</label>
-                    <input type="file" class="form-control" id="product_image1" name="product_image1" accept="image/*">
-                </div>
-                <div class="mb-3">
-                    <label for="product_image2" class="form-label">Upload Image</label>
-                    <input type="file" class="form-control" id="product_image2" name="product_image2" accept="image/*">
-                </div>
+               
                 <button type="submit" class="btn btn-primary w-100" name="insert">Add Product</button>
             </form>
         </div>

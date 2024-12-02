@@ -7,30 +7,29 @@ html , body {
     width: 100%;
     height: 100%;
 }
-
-/* Product Cards */
-.card {
+.productCart {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    width: 300px; 
-    height: 450px; 
+    width: 100%; /* Make card responsive */
+    max-width: 300px; 
+    height: auto; /* Adjust height based on content */
     margin: 15px;
     text-align: center;
     font-family: Arial;
     display: flex;
     flex-direction: column; 
-    justify-content: space-between; 
+    justify-content: space-evenly; 
     border-radius: 8px;
     overflow: hidden; 
 }
 
-.card img {
+.productCart img {
     width: 100%;
     height: 200px; 
     object-fit: cover;
     border-bottom: 2px solid #ddd; 
 }
 
-.card h1 {
+.productCart h1 {
     font-size: 20px;
     margin: 10px 0;
     overflow: hidden; 
@@ -38,19 +37,44 @@ html , body {
     white-space: nowrap;
 }
 
-.price {
+.productCart .price {
     color: grey;
     font-size: 18px;
     margin-bottom: 10px;
 }
 
-.card p {
+.productCart p {
     font-size: 14px;
     color: #666;
     margin: 0;
 }
 
-.card button {
+.productCart .qntity{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.productCart .qntity label{
+    margin-right: 10px;
+}
+
+.productCart .quantity-input {
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    text-align: center;
+    width: 50px;
+}
+
+.productCart .quantity-input:focus {
+    outline: none;
+    border-color: #000;
+}
+
+.productCart .add-to-cart {
     border: none;
     outline: 0;
     padding: 12px;
@@ -61,8 +85,30 @@ html , body {
     width: 100%;
     font-size: 18px;
     margin-top: auto; 
+    text-decoration: none;
 }
 
-.card button:hover {
+.productCart .add-to-cart:hover {
     opacity: 0.7;
 }
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .productCart {
+        width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .productCart {
+        width: 100%;
+    }
+}
+
+#footer {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+    
