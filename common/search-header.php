@@ -31,7 +31,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="#" onclick="window.location.href = 'index.php';">Home</a>
+            <a class="nav-link" aria-current="page" href="#" onclick="window.location.href = 'index.php';" >Home</a>
         </li>
 
         <!-- Dropdown Menu For Brands -->
@@ -62,11 +62,12 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="cart.php"><i class="ri-shopping-cart-fill"><sup>1</sup></i></a>
+            <!-- <a class="nav-link" href="cart.php"><i class="ri-shopping-cart-fill"><sup>1</sup></i></a> -->
+            <?php totalCartProducts()?>
         </li>
 
     </ul>
-    <form class="d-flex " role="search" action="" method="get">
+    <form class="d-flex " role="search" action="search-product.php" method="get">
         <input class="form-control me-2  border-light" name="search" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-warning" name="search-product" >Search</button>
     </form>

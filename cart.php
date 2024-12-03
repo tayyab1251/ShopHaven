@@ -24,7 +24,7 @@ if (isset($_POST['product_id']) && isset($_POST['quantity'])) {
               ON DUPLICATE KEY UPDATE item_quantity = item_quantity + '$quantity'";
     mysqli_query($conn, $query);
     echo '<script>alert("Product added to your cart!");</script>';
-    header("Location: cart.php");
+    echo '<script>window.location.href = "cart.php";</script>';
     exit();
 }
 // get all carted products
@@ -37,7 +37,7 @@ echo '<div class="container mt-5">
         <table class="table table-striped table-bordered">
             <thead class="thead-dark">
                 <tr>
-                    <th>Item ID</th>
+                    
                     <th>Item Title</th>
                     <th>Item Price</th>
                     <th>Item Quantity</th>
@@ -55,15 +55,14 @@ while ($row = mysqli_fetch_assoc($result)) {
     $item_quantity = $row['item_quantity'];
 
     $total = $item_price * $item_quantity;
-
-    echo '<tr>
-            <td>' . $item_id . '</td>
+    
+    echo '<tr>         
             <td>' . $item_title . '</td>
             <td>$' . number_format($item_price, 2) . '</td>
             <td>' . $item_quantity . '</td>
             <td>$' . number_format($total, 2) . '</td>
             <td>
-                <a href="update.php?item_id=' . $item_id . '" class="ri-edit-line" title="Update"></a> 
+                <a href="update.php?item_id=' . $item_id . '" class="ri-edit-line" title="Update" ></a> 
                 <a href="delete.php?item_id=' . $item_id . '" class="ri-delete-bin-line" title="Delete"></a>
             </td>
         </tr>';
@@ -76,4 +75,5 @@ echo '</tbody>
 // Close the database connection
 mysqli_close($conn);
 ?>
+
 <?php include 'common/footer.php'; ?>

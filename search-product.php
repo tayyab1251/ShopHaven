@@ -5,9 +5,10 @@ require_once 'functions/functions.php';
 
 
 <div id="home" class="container-fluid p-0">
-    <div class="text-center bg-light py-3">
-        <h2>Ecommerce Store</h2>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. In, vel!</p>
+<div class="text-center bg-light py-3">
+        <h2>ShopHaven</h2>
+        <a href=""></a>
+        <p>Your Ultimate Shopping Destination.</p>
     </div>
 
     <div class="row">

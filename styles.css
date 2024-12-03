@@ -9,9 +9,9 @@ html , body {
 }
 .productCart {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    width: 100%; /* Make card responsive */
+    width: 100%;
     max-width: 300px; 
-    height: auto; /* Adjust height based on content */
+    height: auto; 
     margin: 15px;
     text-align: center;
     font-family: Arial;

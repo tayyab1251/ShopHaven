@@ -84,11 +84,10 @@ function getCategories()
         }
     }
 }
-// Function to display the cart icon with the total number of items in the cart
+# Function to display cart items 
 function totalCartProducts() {
     global $conn;
-
-    // Query to get all rows from the cart table
+    
     $cart_products = "SELECT * FROM `cart`";
     
     if ($result = mysqli_query($conn, $cart_products)) {
@@ -146,3 +145,10 @@ function searchProduct()
               </div>';
     }
 }
+
+# update Product
+function updateProduct() 
+{
+    echo 'updateProduct';
+}
+
