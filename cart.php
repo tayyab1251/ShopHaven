@@ -37,17 +37,16 @@ echo '<div class="container mt-5">
         <table class="table table-striped table-bordered">
             <thead class="thead-dark">
                 <tr>
-                    
                     <th>Item Title</th>
                     <th>Item Price</th>
                     <th>Item Quantity</th>
                     <th>Total</th>
                     <th>Actions</th>
-
                 </tr>
             </thead>
             <tbody>';
 
+$subtotal = 0; 
 while ($row = mysqli_fetch_assoc($result)) {
     $item_id = $row['item_id'];
     $item_title = $row['item_title'];
@@ -55,6 +54,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     $item_quantity = $row['item_quantity'];
 
     $total = $item_price * $item_quantity;
+    $subtotal += $total;
     
     echo '<tr>         
             <td>' . $item_title . '</td>
@@ -70,10 +70,12 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 echo '</tbody>
         </table>
+        <p><strong>Subtotal: $' . number_format($subtotal, 2) . '</strong></p>
     </div>';
 
 // Close the database connection
 mysqli_close($conn);
 ?>
+
 
 <?php include 'common/footer.php'; ?>
