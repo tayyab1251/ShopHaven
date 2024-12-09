@@ -30,51 +30,76 @@ if (isset($_POST['product_id']) && isset($_POST['quantity'])) {
 // get all carted products
 $query = "SELECT * FROM cart";
 $result = mysqli_query($conn, $query);
+$result_count = mysqli_num_rows($result);
 
-echo '<div class="container mt-5">
-        <a href="index.php">Go back</a>        
-        <h2 class="text-center mb-4">Shopping Cart</h2>
-        <table class="table table-striped table-bordered">
-            <thead class="thead-dark">
-                <tr>
-                    <th>Item Title</th>
-                    <th>Item Price</th>
-                    <th>Item Quantity</th>
-                    <th>Total</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>';
+if ($result_count > 0) {
 
-$subtotal = 0; 
-while ($row = mysqli_fetch_assoc($result)) {
-    $item_id = $row['item_id'];
-    $item_title = $row['item_title'];
-    $item_price = $row['item_price'];
-    $item_quantity = $row['item_quantity'];
 
-    $total = $item_price * $item_quantity;
-    $subtotal += $total;
-    
-    echo '<tr>         
-            <td>' . $item_title . '</td>
-            <td>$' . number_format($item_price, 2) . '</td>
-            <td>' . $item_quantity . '</td>
-            <td>$' . number_format($total, 2) . '</td>
-            <td>
-                <a href="update.php?item_id=' . $item_id . '" class="ri-edit-line" title="Update" ></a> 
-                <a href="delete.php?item_id=' . $item_id . '" class="ri-delete-bin-line" title="Delete"></a>
-            </td>
-        </tr>';
+    echo '<div class="container mt-5">
+    <a href="index.php">Go back</a>        
+    <h2 class="text-center mb-4">Shopping Cart</h2>
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Item Title</th>
+                <th>Item Price</th>
+                <th>Item Quantity</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>';
+
+    $subtotal = 0;
+    while ($row = mysqli_fetch_assoc($result)) {
+        $item_id = $row['item_id'];
+        $item_title = $row['item_title'];
+        $item_price = $row['item_price'];
+        $item_quantity = $row['item_quantity'];
+
+        $total = $item_price * $item_quantity;
+        $subtotal += $total;
+
+        echo '<tr>         
+        <td>' . $item_title . '</td>
+        <td>$' . number_format($item_price, 2) . '</td>
+        <td>' . $item_quantity . '</td>
+        <td>$' . number_format($total, 2) . '</td>
+        <td>
+            <a href="update.php?item_id=' . $item_id . '" class="ri-edit-line" title="Update" ></a> 
+            <a href="delete.php?item_id=' . $item_id . '" class="ri-delete-bin-line" title="Delete"></a>
+        </td>
+    </tr>';
+    }
+
+    echo '</tbody>
+        </table>
+        </div>
+             = <div class = "container py-2">
+                    <row class="d-flex justify-content-between">
+                        <div>
+                            <p><strong class="border p-2">Subtotal: $' . number_format($subtotal, 2) . '</strong></p>
+                        </div>
+                        <div>
+                            <a href="payment.php" class="btn btn-primary" title="Update" >Checkout </a> 
+                        </div>
+                    </row>
+                </div>';
+
+    // Close the database connection
+    mysqli_close($conn);
+} else {
+    echo '<div class="container mt-5 text-center">
+    <h2 class="text-center mb-4">Shopping Cart</h2>
+    <div class="empty-cart">
+        <i class="ri-shopping-cart-2-line" style="font-size: 50px; color: #ff7b7b;"></i>
+        <p class="lead mt-3">Your cart is currently empty.</p>
+        <p>Start shopping and add some items to your cart.</p>
+        <a href="index.php" class="btn btn-success m-3">Browse Products</a>
+    </div>
+  </div>';
 }
 
-echo '</tbody>
-        </table>
-        <p><strong>Subtotal: $' . number_format($subtotal, 2) . '</strong></p>
-    </div>';
-
-// Close the database connection
-mysqli_close($conn);
 ?>
 
 
