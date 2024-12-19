@@ -3,6 +3,7 @@ body {
     background-color: #f4f7fc;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     height: 100vh;
+    overflow-x: hidden;
 }
 
 /* Form Container */
@@ -49,6 +50,7 @@ h3 {
     font-size: 16px;
     font-weight: bold;
 }
+
 
 /* Link Styles */
 a {

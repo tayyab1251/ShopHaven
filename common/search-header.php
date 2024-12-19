@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 require_once './functions/functions.php';
 ?>
 
@@ -70,6 +71,7 @@ require_once './functions/functions.php';
                 <form class="d-flex " role="search" action="search-product.php" method="get">
                     <input class="form-control me-2  border-light" name="search" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-warning" name="search-product">Search</button>
+                    <?php echo isset($_SESSION['username']) ? '' : '<a class="p-1" name="search-product">Register</a>' ?>
                 </form>
                 <!-- Searching -----] -->
             </div>
@@ -81,10 +83,25 @@ require_once './functions/functions.php';
         <div class="row">
             <div class="col d-flex justify-content-between py-4 bg-secondry">
                 <div class="left">
-                    <a href="./user/login.php">Login</a>
+                    <!-- <form action="" method="get"></form> -->
+                    <?php
+
+                    if (isset($_SESSION['username'])) {
+                        echo "<a href='./user/logout.php'>Logout</a>";
+                    } else {
+                        echo "<a href='./user/login.php'>Login</a>";
+                    }
+                    ?>
                 </div>
                 <div class="right">
-                    Welcome Guest
+                    <?php
+
+                    if (isset($_SESSION['username'])) {
+                        echo "<span class='fw-bold text-primary'>Welcome back {$_SESSION['username']}</span>";
+                    } else {
+                        echo "<span class='fw-bold text-primary'>Welcome Guest</span>";
+                    }
+                    ?>
                 </div>
             </div>
         </div>

@@ -13,8 +13,7 @@ function connectDb()
         die('Connection failed' . mysqli_connect_error());
     }
 }
-
-# Get all products
+# Get All Products from database
 function getProducts()
 {
     global $conn;
@@ -30,23 +29,48 @@ function getProducts()
             $product_price = $row['product_price'];
             $product_image = $row['product_image'];
 
-            echo '<form method="POST" action="cart.php" class="productCart">
-        <div class="card">
-            <img src="./admin/product-images/' . $product_image . '" alt="' . $product_title . '">
-            <h1>' . $product_title . '</h1>
-            <p class="price">$' . number_format($product_price, 2) . '</p>
-            <p>' . $product_description . '</p>
-            <div class="qntity">
-                <label for="quantity">Quantity:</label>
-                <input type="number" class="quantity-input" id="quantity" name="quantity" value="1" min="1" max="100">
-            </div>
-            <input type="hidden" name="product_id" value="' . $product_id . '">
-            <button type="submit" class="add-to-cart">Add to Cart</button>
-        </div>  
-    </form>';
+            echo '<div class="col-lg-4 col-md-6 col-sm-12">
+                <form method="POST" action="cart.php" class="productCart">
+                    <div class="product-card">
+                        <!-- Product Image -->
+                        <div class="product__item__pic">
+                            <img src="./admin/product-images/' . $product_image . '" alt="' . $product_title . '">
+                        </div>
+                        <!-- Product Text Content -->
+                        <div class="product__item__text">
+                            <h6>' . $product_title . '</h6>
+
+                            
+                            <!-- Product Rating -->
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-half-alt"></i>
+                                <i class="fa fa-star-o"></i>
+                                </div>
+                                
+                                <!-- Product Price -->
+                                <div class="product__price">$' . number_format($product_price, 2) . '</div>
+                                
+                            <!-- Quantity Input -->
+                            <div class="qntity">
+                            <label for="quantity">Quantity:</label>
+                            <input type="number" class="quantity-input" id="quantity" name="quantity" value="1" min="1" max="100">
+                            </div>
+                            
+                            <!-- Hidden Product ID -->
+                            <input type="hidden" name="product_id" value="' . $product_id . '">
+                            <!-- Add to Cart Button -->
+                            <button type="submit" class="add-cart">+ Add To Cart</button>
+                        </div>
+                    </div>  
+                </form>
+            </div>';
         }
     }
 }
+
 
 // addToCart();
 # Get Brands
@@ -85,18 +109,18 @@ function getCategories()
     }
 }
 # Function to display cart items 
-function totalCartProducts() {
+function totalCartProducts()
+{
     global $conn;
-    
     $cart_products = "SELECT * FROM `cart`";
-    
+
     if ($result = mysqli_query($conn, $cart_products)) {
         $row_count = mysqli_num_rows($result);
 
         if ($row_count > 0) {
             echo '<a class="nav-link" style="color: yellow;" href="cart.php">
                     <i class="ri-shopping-cart-fill" style="font-size: 1rem;">
-                        <sup>' . $row_count . '</sup>
+                        <sup class="bg-primary p-1 rounded-circle">' . $row_count . '</sup>
                     </i>
                   </a>';
         } else {
@@ -117,11 +141,19 @@ function searchProduct()
     global $conn;
 
     $user_request = $_GET['search'];
+    if (empty($user_request)) {
+        echo '<div class="no-results-message" style="text-align: center; padding: 20px; background-color: #f8d7da; border: 1px solid #f5c6cb; border-radius: 5px; color: #721c24;">
+                <h4>Oops! No products found for "' . htmlspecialchars($user_request) . '"</h4>
+                <p>Try searching with different keywords or check your spelling.</p>
+              </div>';
+        exit();
+    }
 
-    $product = "SELECT * FROM `products` WHERE product_keywords LIKE '%$user_request%' ";
+    $product = "SELECT * FROM `products` WHERE product_keywords LIKE '%$user_request%'";
     $result_products = mysqli_query($conn, $product);
 
     if (mysqli_num_rows($result_products) > 0) {
+        echo '<div class="row">'; 
 
         while ($row = mysqli_fetch_assoc($result_products)) {
             $product_id = $row['product_id'];
@@ -130,14 +162,48 @@ function searchProduct()
             $product_price = $row['product_price'];
             $product_image = $row['product_image'];
 
-            echo '<div class="card">
-                    <img src="./admin/product-images/' . $product_image . '" alt="' . $product_title . '">
-                    <h3>' . $product_title . '</h3>
-                    <p class="price">$' . number_format($product_price, 2) . '</p>
-                    <p>' . $product_description . '</p>
-                    <p><button>Add to Cart</button></p>
-                 </div>';
+            echo '<div class="col-lg-4 col-md-6 col-sm-12">
+                    <form method="POST" action="cart.php" class="productCart">
+                        <div class="product-card">
+                            <!-- Product Image -->
+                            <div class="product__item__pic">
+                                <img src="./admin/product-images/' . $product_image . '" alt="' . $product_title . '">
+                            </div>
+                            <!-- Product Text Content -->
+                            <div class="product__item__text">
+                                <h6>' . $product_title . '</h6>
+
+                                
+                                <!-- Product Rating (static for now) -->
+                                <div class="rating">
+                                <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-half-alt"></i>
+                                    <i class="fa fa-star-o"></i>
+                                </div>
+
+                                <!-- Product Price -->
+                                <div class="product__price">$' . number_format($product_price, 2) . '</div>
+                                
+                                <!-- Quantity Input -->
+                                <div class="qntity">
+                                <label for="quantity">Quantity:</label>
+                                <input type="number" class="quantity-input" id="quantity" name="quantity" value="1" min="1" max="100">
+                                </div>
+                                
+                                <!-- Hidden Product ID -->
+                                <input type="hidden" name="product_id" value="' . $product_id . '">
+                               
+                                <!-- Add to Cart Button -->
+                                <button type="submit" class="add-cart">+ Add To Cart</button>
+                            </div>
+                        </div>  
+                    </form>
+                </div>'; 
         }
+
+        echo '</div>';
     } else {
         echo '<div class="no-results-message" style="text-align: center; padding: 20px; background-color: #f8d7da; border: 1px solid #f5c6cb; border-radius: 5px; color: #721c24;">
                 <h4>Oops! No products found for "' . htmlspecialchars($user_request) . '"</h4>
@@ -147,8 +213,7 @@ function searchProduct()
 }
 
 # update Product
-function updateProduct() 
+function updateProduct()
 {
     echo 'updateProduct';
 }
-

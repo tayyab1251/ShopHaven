@@ -10,14 +10,24 @@ require_once 'functions/functions.php';
         <a href=""></a>
         <p>Your Ultimate Shopping Destination.</p>
     </div>
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Product Card Start -->
+            <?php
+           if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search-product'])) {
+            searchProduct();
+         }
+            ?>
+            <!-- Product Card End -->
+        </div>
+    </div>
+
 
     <div class="row">
         <div class="col-md-12">
             <div class="row d-flex justify-content-evenly">
                 <?php
-                if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search-product'])) {
-                   searchProduct();
-                }
+                
                 ?>
             </div>
         </div>

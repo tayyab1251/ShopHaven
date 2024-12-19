@@ -9,6 +9,8 @@ if (isset($_POST['register'])) {
         $email = $_POST['email'];
         $password = $_POST['password'];
         $confirm_password = $_POST['confirm-password'];
+        $hashed = password_hash($confirm_password,PASSWORD_DEFAULT);
+        // echo $hashed;
 
         // Validate
         if (empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
@@ -23,30 +25,29 @@ if (isset($_POST['register'])) {
                     echo "<script>alert('Passwords do not match!');</script>";
                 } else {
                     $folder = "images/" . $profile;
-
-                    $db = mysqli_connect('localhost', 'root', '', 'mystore');
-                    #check connection
-                    if (!isset($db)) {
+                    // include database
+                    require'../db-confg.php';
+                    if (!isset($conn)) {
                         die('Connection failed' . mysqli_connect_error());
                     } else {
+                        // echo 'connected';
                         // Check user exist
-                        $user_check = "SELECT * FROM `users` WHERE username = '$username' AND email = '$email'";
-                        $check_result = mysqli_query($db, $user_check);
+                        $user_check = "SELECT * FROM `users` WHERE username = '$username' OR email = '$email'";
+                        $check_result = mysqli_query($conn, $user_check);
 
                         $rows = mysqli_num_rows($check_result);
                         if ($rows > 0) {
                             echo "<script>alert(' User already registered!!')</script>";
                         } else {
-                            $insert = "INSERT INTO `users` (username, email, password, confirm_password, image) 
-                            VALUES ('$username', '$email', '$password', '$confirm_password', '$profile')";
+                            $insert = "INSERT INTO `users` (username, email, password, image) 
+                            VALUES ('$username', '$email', '$hashed', '$profile')";
 
-                            mysqli_query($db, $insert);
+                            mysqli_query($conn, $insert);
                             #if moved 
                             if (move_uploaded_file($tempname, $folder)) {
                                 // echo '<script>alert("Data saved and img uploaded!");</script>';
-                            } else {
-                                // echo '<script>alert("Not uploaded!");</script>';
                                 echo "<script>alert(' {$username} Registered Successfully!!')</script>";
+                                echo '<script>window.location.href = "login.php";</script>';
                             }
                         }
                     }
