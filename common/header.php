@@ -61,11 +61,14 @@ require_once './functions/functions.php';
                             ?>
                         </ul>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#" onclick="window.location.href = 'contact.php';">Contact Us</a>
+                    </li>
                     <li class="nav-item">
                         <!-- <a class="nav-link" href="cart.php"><i class="ri-shopping-cart-fill"><sup>1</sup></i></a> -->
                         <?php totalCartProducts() ?>
                     </li>
+                    
 
                 </ul>
                 <form class="d-flex " role="search" action="search-product.php" method="get">
